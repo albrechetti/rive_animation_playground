@@ -59,33 +59,30 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: SizedBox(
-          width: 500,
-          height: 600,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _riveArtboard == null
-                  ? const SizedBox()
-                  : SizedBox(
-                      width: 300,
-                      height: 300,
-                      child: Rive(
-                        artboard: _riveArtboard!,
-                        fit: BoxFit.contain,
-                        useArtboardSize: false,
-                      ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _riveArtboard == null
+                ? const SizedBox()
+                : SizedBox(
+                    width: 300,
+                    height: 300,
+                    child: Rive(
+                      artboard: _riveArtboard!,
+                      fit: BoxFit.contain,
+                      useArtboardSize: false,
                     ),
-              Slider(
-                  value: moodValue!.value,
-                  min: 0,
-                  max: 100,
-                  onChanged: (value) {
-                    moodValue!.value = value;
-                    setState(() {});
-                  }),
-            ],
-          ),
+                  ),
+            Slider(
+              value: moodValue!.value,
+              min: 0,
+              max: 100,
+              onChanged: (value) {
+                moodValue!.value = value;
+                setState(() {});
+              },
+            ),
+          ],
         ),
       ),
     );
