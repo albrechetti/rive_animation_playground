@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Mood Animation'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -36,28 +37,31 @@ class _MyHomePageState extends State<MyHomePage> {
   SMIInput<double>? moodValue;
   late StateMachineController _controller;
 
-  @override
-  void initState() {
-    super.initState();
+  //Setup artboard
+  void moodAnimationSetup() {
     rootBundle.load('../assets/animations/mood_face.riv').then((data) {
       final file = RiveFile.import(data);
       final artboard = file.mainArtboard;
       var controller =
-          StateMachineController.fromArtboard(artboard, 'State Machine 1');
+          StateMachineController.fromArtboard(artboard, 'mood_state');
       if (controller != null) {
         artboard.addController(controller);
-        moodValue = controller.findInput('Mood Value');
+        moodValue = controller.findInput('mood_value');
       }
       setState(() => _riveArtboard = artboard);
     });
   }
 
   @override
+  void initState() {
+    super.initState();
+    moodAnimationSetup();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      backgroundColor: const Color(0xff1C1D39),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -65,8 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
             _riveArtboard == null
                 ? const SizedBox()
                 : SizedBox(
-                    width: 300,
-                    height: 300,
+                    width: 500,
+                    height: 500,
                     child: Rive(
                       artboard: _riveArtboard!,
                       fit: BoxFit.contain,
@@ -74,6 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
             Slider(
+              activeColor: const Color(0xff35EBF1),
+              inactiveColor: const Color(0xff2F418D),
               value: moodValue!.value,
               min: 0,
               max: 100,
