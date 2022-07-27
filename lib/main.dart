@@ -73,8 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 500,
                     child: Rive(
                       artboard: _riveArtboard!,
-                      fit: BoxFit.contain,
+                      fit: BoxFit.fitWidth,
                       useArtboardSize: false,
+                      antialiasing: true,
                     ),
                   ),
             Slider(
